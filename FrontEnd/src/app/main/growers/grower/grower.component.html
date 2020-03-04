@@ -1,0 +1,399 @@
+<div class="growerDetails">
+    <div class="accountdetails">
+
+        <div class="headingHolder">
+            <div class="heading">
+                Profile Name
+            </div>
+        </div>
+        <div class="data">
+            <div class="imageContainer">
+                <div class="image">
+                   <!-- <img src="/assets/avatar.jpg" alt="">-->
+                    <img [src]="profileImage" alt="">
+                </div>
+
+            </div>
+            <div class="accountInfo">
+                <div class="sectionHeading">
+                    ACCOUNT DETAILS
+                </div>
+                <div class="accountDetails">
+                    <table>
+                        <tr>
+                            <td> Account Bal: </td>
+                            <td class="amount"> {{currentGrower.balance | currency:'INR'}} </td>
+                        </tr>
+                    </table>
+
+                    <div class="controls">
+                        <button (click)="openAddTransactionDialogue()">Add Transaction</button>
+                        <button (click)="openPayDialogue()">Pay Amount</button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="contactDetails">
+                <br>
+                <div class="sectionHeading">
+                    CONTACT INFORMATION
+                </div>
+
+                <div class="contactDetails">
+                    <table>
+                        <tr>
+                            <td>Phone:</td>
+                            <td>{{currentGrower.phone}}</td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td>{{currentGrower.address}}</td>
+                        </tr>
+                        <tr>
+                            <td>Pan Card:</td>
+                            <td>{{currentGrower.pan}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="eTransactionContainer">
+        <div class="earlierTransactionsHolder">
+            <div class="eHeading">
+                <div class="labelHead">
+                    Earlier Transactions
+                </div>
+                <div class="searchField">
+                    <div class="inputHold">
+                        <input type="text" class="mdText" placeholder="search transaction...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="transactions">
+                <ng-container *ngFor="let eachTransaction of growerTransactions">
+
+                    <div class="transactionBox">
+                        {{eachTransaction.date}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<ng-container *ngIf="OpenPayAmountDialogue">
+    <div class="popupContainer">
+        <div class="popupHolder">
+            <div class="popupContent">
+                <table>
+                    <tr>
+                        <td>Total Balance:</td>
+                        <td>{{currentGrower.balance |currency:'INR'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Paying Amount:</td>
+                        <td><span class="amountField">&#x20B9;<input type="text" class="mdText" #payNow
+                                    (input)=calculateRemBal(payNow.value)></span>
+                        </td>
+                    </tr>
+                    <hr>
+                    <tr>
+                        <td>Remaining</td>
+                        <td>{{remBal |currency:'INR'}} inr</td>
+                    </tr>
+                </table>
+                <hr>
+
+                <div class="controls">
+                    <button (click)="closePayDialogue()">Cancel</button>
+                    <button (click)="payAmount()">Pay</button>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</ng-container>
+
+<ng-container *ngIf="openTransactionDialogue">
+    <div class="popupContainer">
+        <div class="transactionPopup">
+
+            <div class="stepContainer">
+
+                <div class="steps">
+                    <ul>
+                        <li [ngClass]="{'success':step1,'highlightStep':this.highlightStep1}">Select Grower</li>
+                        <li [ngClass]="{'success':step2,'highlightStep':this.highlightStep2}">Add Items</li>
+                        <li [ngClass]="{'success':step3,'highlightStep':this.highlightStep3}">Step 3</li>
+                    </ul>
+                </div>
+
+                <div class="detailsContainer">
+                    <div class="detailsHolder">
+                        <div [ngClass]="['data', activeView]">
+                            <div class="stepform">
+                                <label for="grower">Grower Name: </label>
+                                <span> Umar Baba</span>
+                                <br>
+                            </div>
+
+                            <div class="stepform">
+                                <div id="standard-factory-container">
+
+                                    <form class="standardEditor-form" [formGroup]="standardUpdateForm"
+                                        (ngSubmit)="onSubmit($event)">
+                                        <label class="itemsHeading">Add Item details here</label>
+
+                                        <div class="versionPlayground" formArrayName="versionList">
+                                            <div class="eachVersionDetails"
+                                                *ngFor="let eachVersion of standardUpdateForm.controls.versionList.controls;let i=index">
+                                                <div class="version" [formGroupName]="i">
+
+                                                    <input placeholder="item" formControlName="item">
+                                                    <input type="number" placeholder="price" formControlName="price">
+                                                    <input type="number" placeholder="qty" formControlName="qty">
+
+
+                                                    <button class="remove" type="button" *ngIf="i!=0"
+                                                        (click)="removeVersion(i)">
+                                                        <i class="material-icons">
+                                                            close
+                                                        </i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="addVersionButtonContainer">
+                                            <button type="button" mat-button (click)="addNewVersion()">Add
+                                                Item</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="stepform">
+                                <div class="verifyDetailsHeader">
+                                    <form [formGroup]="standardUpdateForm">
+                                        <label for="commision">Commision Charge</label>
+
+                                        <span class="margin-left-5"><input type="number" value="12" formControlName="commisionField"
+                                               >%</span>
+                                    </form>
+
+                                    <span><button (click)="onVerifyDetails()">verify Details</button></span>
+
+
+                                </div>
+
+
+
+                                <div *ngIf="showItemDetails" class="itemDetailsView">
+
+                                    <div class="example-container mat-elevation-z8">
+                                        <table mat-table [dataSource]="dataSource">
+                                            <!-- Item Column -->
+                                            <ng-container matColumnDef="item">
+                                                <th mat-header-cell *matHeaderCellDef> Item </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                                                <td mat-footer-cell *matFooterCellDef> Total </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="price">
+                                                <th mat-header-cell *matHeaderCellDef> Price </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                                                <td mat-footer-cell *matFooterCellDef> </td>
+
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="qty">
+                                                <th mat-header-cell *matHeaderCellDef> Qty </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+                                                <td mat-footer-cell *matFooterCellDef> </td>
+
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="total">
+                                                <th mat-header-cell *matHeaderCellDef> Total </th>
+                                                <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+                                                <td mat-footer-cell *matFooterCellDef> {{totalAmount }} </td>
+                                            </ng-container>
+
+                                            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                            <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+                                        </table>
+                                    </div>
+
+
+                                    <!--<table>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Price</th>
+                                            <th>Qty</th>
+                                            <th>Amount</th>
+                                        </tr>
+
+                                        <tr *ngFor="let item of standardUpdateForm.controls.versionList.controls"
+                                            class="item">
+                                            <td>{{item.value.item}}</td>
+                                            <td>{{item.value.price}}</td>
+                                            <td>{{item.value.qty}}</td>
+                                            <td>{{item.value.price * item.value.qty}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total</th>
+                                            <td></td>
+                                            <td></td>
+                                            <th>{{totalAmount}}</th>
+                                        </tr>
+                                    </table>-->
+                                    <hr>
+                                    <div class="AmountPayable">
+                                        <label for="">Total Amount Payable after
+                                            {{standardUpdateForm.controls.commisionField.value}}% commision : </label>
+                                        <span><b>{{payableAmount}}</b></span>
+    
+                                    </div>
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button (click)="changeViewReverse()" *ngIf="activeView!='left'">Back</button>
+                    <button (click)="changeView()">
+
+                        <ng-container *ngIf="activeView!='right'; else finish">Next</ng-container>
+                        <ng-template #finish>Finish</ng-template>
+
+                    </button>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</ng-container>
+
+
+<!--<div class="transactionContainer">
+    <div class="detailsContainer">
+        <div class="detailsHolder">
+            <div class="headingContainer">
+                <div class="headingHolder">
+                    <div class="label">
+                        Grower
+                    </div>
+                    <div class="heading">
+                        {{currentGrower.name}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <div class="smallLabel">
+                        Name
+                    </div>
+                    <div class="inputHolder">
+                        <input type="text" #name name="name" [value]="inputdisabled?selectedItem?.name:''"
+                            class="textfield" [disabled]="inputdisabled">
+                    </div>
+
+                </div>
+                <div class="column paddingleft">
+                    <div class="smallLabel ">
+                        Credit
+                    </div>
+                    <div class="inputHolder">
+                        <input type="text" name="name" #credit [value]="inputdisabled?selectedItem?.credit:''"
+                            class="textfield" [disabled]="inputdisabled">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <div class="smallLabel">
+                        Phone
+                    </div>
+                    <div class="inputHolder">
+                        <input type="text" name="name" #phone [value]="inputdisabled?selectedItem?.phone:''"
+                            class="textfield" [disabled]="inputdisabled">
+                    </div>
+
+                </div>
+                <div class="column paddingleft">
+                    <div class="smallLabel">
+                        Email
+                    </div>
+                    <div class="inputHolder">
+                        <input type="text" name="name" #email [value]="inputdisabled?selectedItem?.email:''"
+                            class="textfield" [disabled]="inputdisabled">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <div class="smallLabel">
+                        Last Transaction
+                    </div>
+                    <div class="inputHolder">
+                        <input type="text" name="name" value={{selectedItem?.lastTransaction}} class="textfield"
+                            disabled>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="buttonContainer">
+                    <input type="button" class="mdbtn" value="Proceed" [disabled]="buttonDisabled" (click)=proceedBuy()>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="eTransactionContainer">
+        <div class="earlierTransactionsHolder">
+            <div class="eHeading">
+                <div class="labelHead">
+                    Earlier Transactions
+                </div>
+                <div class="searchField">
+                    <div class="inputHold">
+                        <input type="text" class="mdText" placeholder="search transaction...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="transactions">
+                <ng-container *ngFor="let eachTransaction of growerTransactions">
+
+                    <div class="transactionBox">
+                        {{eachTransaction.date}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+-->

@@ -1,0 +1,218 @@
+.transactionContainer{
+    display: grid;
+    width :100%;
+    height: calc( 100% - 67px );
+    grid-template-columns: 8fr 5fr;
+}
+.detailsContainer{
+   display:flex;
+   justify-content: center;
+}
+.detailsHolder{
+    width:85%;
+    display:grid;
+    padding-left:5%;
+    grid-template-rows : 2fr 3fr 4fr 2fr;
+    grid-row-gap: 10px;
+}
+.headingContainer{
+    display: flex;
+    align-items: center;
+}
+.headingHolder{
+    width: 72%;
+    border: 1.5px solid #4b484830;
+    box-sizing: border-box;
+    background: white;
+    padding-left: 1rem;
+}
+.label{
+    font-size: 15px;
+    color: #000000;
+    min-height: 20px;
+}
+.heading{
+    font-size: 30px;
+    color: #F38E8E;
+    padding-top: .2rem ;
+}
+
+
+.orderContainer{
+    display: flex;
+    align-items: center;
+
+}
+.orderHolder{
+
+    display: flex;
+    align-items: center;
+
+}
+.calculationHolder{
+    border: 1.5px solid #4b484830;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+
+}
+.column{
+    padding: 6px;
+}
+.inputHold{
+    padding-top: .3rem;
+}
+.inputHold input{
+    border: 1.5px solid #29A3FC;
+    height: 2rem;
+    padding-left: .5rem;
+    font-size: 16px;
+}
+.inputHold .mdText{
+    width :14rem
+}
+
+.mulIcon{
+    color: #6B6868;
+}
+.orHolder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5vw;
+}
+.orIcon{
+    background: #FF8A8A;
+    padding: .5rem;
+    border-radius: 50%;
+    font-size: 28px;
+    color: white;
+}
+.amountHolder{
+    border: 1.5px solid #4b484830;
+}
+
+.amountDetails{
+    justify-content: center;
+    align-items: center;
+}
+
+.row{
+    display: flex;
+}
+.col{
+    width: 17vw;
+    padding: 10px 0;
+    font-size: 20px
+}
+.col .lab{
+    width: 12vw;
+}
+.buttonHolder{
+    float: right;
+}
+.cancelBtn{
+   
+    color: #6B6868;
+    background: #FFFFFF;
+    border: 1px solid #ABA8A8;
+}
+.nrmlBtm{
+    background: #FF7171;
+    color: white;
+    border: unset;
+    margin-left: 10px;
+}
+.mdBtn{
+    background: #FF7171;
+    color: white;
+    border: unset;
+    margin-left: 10px
+}
+.butn{
+    height: 2.5rem;
+    min-width: 10rem;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 19px;
+    cursor: pointer;
+}
+.buttonContainer{
+    overflow: hidden;
+}
+
+.eTransactionContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.earlierTransactionsHolder{
+    padding :10px;
+    border: 1.5px solid #4b484830;
+    width:92%;
+    height: 95%;
+
+}
+.eHeading{
+    width:100%;
+}
+.searchField{
+    float: right;
+}
+.labelHead{
+    display: inline;
+}
+
+.popupContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eeededba;}
+.popupHolder{
+    width: 500px;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
+    height: 300px;
+    background: #FFF;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+    
+}
+.popupContent{
+
+}
+.colContent{
+    font-size: 25px;
+    color: #29A3FC;
+    padding-left:10px;
+
+}
+.popupContainer .col{
+    width: 12vw;
+    padding: 11px 0;
+    font-size: 18px;
+    margin-left:20px;
+}
+.popupContent hr{
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.popupContent .buttonHolder{
+    margin-top: 5%;
+
+}
+.popupContent .label{
+    padding-right: 20px;
+}
+.popupContent .mdText{
+    width:10rem;
+}
+
