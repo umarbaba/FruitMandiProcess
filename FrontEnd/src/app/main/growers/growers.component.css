@@ -1,7 +1,5 @@
 table.mat-table {
   border-spacing: 0;
-  width: 90%;
-  /* height: 90%; */
 }
 .mainContainer {
   box-sizing: border-box;
@@ -40,16 +38,25 @@ button {
   box-shadow: 0px 0px 8px 1px #999696;
   border-radius: 3px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 .tableContainer {
   overflow: hidden;
   display: grid;
   grid-template-rows: auto 1fr;
 }
-.table {
+.tableHolder{
   overflow: auto;
   display: flex;
   justify-content: center;
+  padding: 0 20px 20px 20px;
+  box-sizing: border-box;
+}
+.table {
+  width: 90%;
+  box-shadow: 0px 0px 10px 5px #ff64645c;
+  box-sizing: border-box;
 }
 
 .buttonContainer {
@@ -107,6 +114,10 @@ th.mat-header-cell {
   padding-left: 10px;
   max-width: 200px;
   overflow: hidden;
+  
+}
+th.mat-header-cell{
+  font-size: 20px;
 }
 .growerName{
     color:#ff6464;
@@ -118,9 +129,10 @@ th.mat-header-cell {
     background: #ff6464;
     border-radius: 3px;
     transition: background 1s;
+    padding: 5px 0px;
 }
 .growerName span {
-    padding: 5px 10px;
+  
 }
 .growerName a {
     text-decoration: none;

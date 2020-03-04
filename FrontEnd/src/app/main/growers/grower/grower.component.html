@@ -134,6 +134,9 @@
                         <li [ngClass]="{'success':step2,'highlightStep':this.highlightStep2}">Add Items</li>
                         <li [ngClass]="{'success':step3,'highlightStep':this.highlightStep3}">Step 3</li>
                     </ul>
+                    <span (click)="closeTransactionPopup()"  class="closeIcon"><i class="material-icons">
+                        close
+                        </i></span>
                 </div>
 
                 <div class="detailsContainer">

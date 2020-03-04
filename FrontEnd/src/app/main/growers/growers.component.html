@@ -8,7 +8,9 @@
             </div>
 
             <div class="buttonsContainer">
-                <button (click)="addNew()">Add New</button>
+                <button (click)="addNew()"><i class="material-icons">
+                    person_add
+                    </i>Add New</button>
                 <button>Edit</button>
             </div>
         </div>
@@ -16,38 +18,41 @@
     </div>
 
     <div class="tableContainer">
-        <div class="table">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <div class="tableHolder">
+            <div class="table">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-                <!-- Name Column -->
-
-                <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef> Name </th>
-                    <td mat-cell *matCellDef="let element">
-                        <div class="growerName"><a [routerLink]="[element.name]"><span>{{element.name}}</span></a></div>
-                    </td>
-                </ng-container>
-                <!-- Khata Column -->
-                <ng-container matColumnDef="khata">
-                    <th mat-header-cell *matHeaderCellDef> Khata </th>
-                    <td mat-cell *matCellDef="let element"> {{element.khata}} </td>
-                </ng-container>
-
-                <!-- Address Column -->
-                <ng-container matColumnDef="address">
-                    <th mat-header-cell *matHeaderCellDef> Address </th>
-                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-                </ng-container>
-
-                <!-- PhoneNo Column -->
-                <ng-container matColumnDef="phoneNo">
-                    <th mat-header-cell *matHeaderCellDef> Phone </th>
-                    <td mat-cell *matCellDef="let element"> {{element.phoneNo}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+                    <!-- Name Column -->
+    
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="growerName"><a [routerLink]="[element.name]"><span>{{element.name}}</span></a></div>
+                        </td>
+                    </ng-container>
+                    <!-- Khata Column -->
+                    <ng-container matColumnDef="khata">
+                        <th mat-header-cell *matHeaderCellDef> Khata </th>
+                        <td mat-cell *matCellDef="let element"> {{element.khata}} </td>
+                    </ng-container>
+    
+                    <!-- Address Column -->
+                    <ng-container matColumnDef="address">
+                        <th mat-header-cell *matHeaderCellDef> Address </th>
+                        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                    </ng-container>
+    
+                    <!-- PhoneNo Column -->
+                    <ng-container matColumnDef="phoneNo">
+                        <th mat-header-cell *matHeaderCellDef> Phone </th>
+                        <td mat-cell *matCellDef="let element"> {{element.phoneNo}} </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+           
         </div>
     </div>
 

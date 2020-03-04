@@ -99,6 +99,10 @@ export class GrowerComponent implements OnInit {
   openAddTransactionDialogue() {
     this.openTransactionDialogue = true;
   }
+  closeTransactionPopup(){
+    this.openTransactionDialogue = false;
+  }
+
   showItemDetailsView() {
     this.showItemDetails = true;
   }
@@ -181,5 +185,6 @@ export class GrowerComponent implements OnInit {
     const control = <FormArray>this.standardUpdateForm.get('versionList');
     control.removeAt(index)
   }
+ 
 
 }
