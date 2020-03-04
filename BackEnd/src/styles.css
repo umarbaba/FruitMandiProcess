@@ -1,0 +1,90 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: inherit;
+}
+body{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
+.content{
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.sideView{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btngroup{
+    width: 80%;
+    padding-bottom: 15vh;
+    padding-right: 4vw;
+}
+.btn{
+    background: #F57272;
+    height: 62px;
+    box-shadow: 0px 6px 18px 8px hsla(0, 0%, 5%, 0.11);
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 27px;
+    cursor: pointer;
+    border:0;
+    padding: 0 15px 0 15px;
+}
+
+.mdbtn{
+    background: #F57272;
+    border-radius: 4px;
+    color: #FFF;
+    font-size: 20px;
+    cursor: pointer;
+    border: 0;
+    padding: 0px 15px 0px 15px;
+    height: 2.5rem;
+
+}
+
+.verticalBarContainer{
+    display:flex;
+    align-items: center;
+
+    
+}
+.verticalBar{
+
+    border-left: 4px solid #F4E2E2;
+    height: 80%;
+    
+}
+.themeColor{
+    color: #FF6464;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: #ff6464
+}
+.mat-form-field.mat-focused .mat-form-field-label{
+    color:#ff6464;
+}
+.mat-table {
+    background: white;
+    width: 100%;
+  }
+
+  .margin-left-5{
+      margin-left:5px;
+  }
