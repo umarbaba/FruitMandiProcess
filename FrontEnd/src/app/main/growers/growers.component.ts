@@ -11,52 +11,57 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class GrowersComponent implements OnInit {
   url: any
-  showAddGrowerDialog = false;
+  addGrower = false;
+  showGrowerDialog = false;
+  selectedGrowerID: any = null
   selectedItem: any;
   showImage = false;
   buttonDisabled = true;
-  growerAddFormData;
+  growerFormData;
 
   ELEMENT_DATA: any = [
-    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phoneNo: '9035615830' },
-    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phoneNo: "7006900000" },
-    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phoneNo: '9035615830' },
-    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phoneNo: "7006900000" },
-    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phoneNo: '9035615830' },
-    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phoneNo: "7006900000" },
-    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phoneNo: '9035615830' },
-    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phoneNo: "7006900000" },
-    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phoneNo: '9035615830' },
-    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phoneNo: "7006900000" },
-    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phoneNo: '9035615830' },
-    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phoneNo: "7006900000" },
+    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phone: '9035615830' },
+    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phone: "7006900000" },
+    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phone: '9035615830' },
+    { name: "Bapi Das", khata: 'Xyz traders', address: 'marathalli Bangalore', phone: "7006900000" },
+    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phone: '9035615830' },
+    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phone: "7006900000" },
+    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phone: '9035615830' },
+    { name: "Bapi Das", khata: 'Xyz traders', address: 'marathalli Bangalore', phone: "7006900000" },
+    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phone: '9035615830' },
+    { name: "Pranoy Sarkar", khata: 'Xyz traders', address: 'marathalli Bangalore', phone: "7006900000" },
+    { name: 'Umar Baba', khata: 'Achabal Traders', address: 'Achabal sopore', phone: '9035615830' },
+    { name: "Bapi Das", khata: 'Xyz traders', address: 'marathalli Bangalore', phone: "7006900000" },
   ];
   constructor(private router: Router, private aRoute: ActivatedRoute, private growerService: GrowerService) { }
-  displayedColumns: string[] = ['name', 'khata', 'address', 'phoneNo'];
+  displayedColumns: string[] = ['name', 'khata', 'address', 'phone', 'action'];
   dataSource = new MatTableDataSource(this.ELEMENT_DATA);
   tabSeleted = true
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  ngOnInit() { }
-
-  initializeAddGrowerFormData(){
-    this.growerAddFormData = new FormGroup({
-      name: new FormControl("",Validators.required),
-      khata: new FormControl("",Validators.required),
-      address: new FormControl("",Validators.required),
-      phone:new FormControl("",Validators.required),
-      district :new FormControl("",Validators.required),
-      zip :new FormControl("",Validators.required),
-      image :new FormControl("")
+  ngOnInit() {
+    this.initializeAddGrowerFormData();
+    this.addUniqueIds()
+  }
+  addUniqueIds() {
+    this.ELEMENT_DATA = this.ELEMENT_DATA.map(element => {
+      element['id'] = this.growerService.getUniqueId();
+      return element;
+    });
+  }
+  initializeAddGrowerFormData() {
+    this.growerFormData = new FormGroup({
+      name: new FormControl("", Validators.required),
+      khata: new FormControl("", Validators.required),
+      address: new FormControl("", Validators.required),
+      phone: new FormControl("", Validators.required),
+      district: new FormControl("", Validators.required),
+      zip: new FormControl("", Validators.required),
+      image: new FormControl("")
     })
   }
-  openAddGrowerDialog() {
-    this.showAddGrowerDialog = true;
-  }
-  closeAddGrowerDialog() {
-    this.showAddGrowerDialog = false;
-  }
+
   onSelectItem(item) {
     console.log(item)
     this.selectedItem = item;
@@ -65,17 +70,10 @@ export class GrowersComponent implements OnInit {
   }
   addNew() {
     this.openAddGrowerDialog()
-    this.initializeAddGrowerFormData();
+    this.initializeAddGrowerFormData()
+
   }
-  addGrower(name, credit, phone, email) {
-    console.log(name)
-    let item: any = {}
-    item.name = name;
-    item.credit = credit;
-    item.phone = phone;
-    item.email = email;
-    this.selectedItem = item;
-  }
+
 
   openGrowerDetails(item) {
     this.onSelectItem(item)
@@ -105,20 +103,59 @@ export class GrowersComponent implements OnInit {
         this.url = "";
       }
       console.log(this.url)
-     
+
     }
   }
-  onSubmit(){
-    console.log(this.growerAddFormData.value)
-    let details = this.growerAddFormData.value;
-    let grower:any={}
-    grower.name = details.name;
-    grower.khata = details.khata;
-    grower.address = details.address;
-    grower.phoneNo = details.phone;
-    this.ELEMENT_DATA.push(grower)
+  onSubmit() {
+    console.log(this.growerFormData.value)
+    let details = this.growerFormData.value;
+    if (this.addGrower) {
+
+      let grower: any = {}
+      grower.name = details.name;
+      grower.khata = details.khata;
+      grower.address = details.address;
+      grower.phone = details.phone;
+      grower.district = details.district;
+      grower.zip = details.zip;
+      grower.id = this.growerService.getUniqueId();
+      this.ELEMENT_DATA.push(grower);
+    }
+    else {
+      let index = this.ELEMENT_DATA.findIndex((obj: any) =>  obj.id == this.selectedGrowerID )
+      if (index > -1) {
+        this.ELEMENT_DATA[index] = Object.assign({}, details)
+      }
+    }
+
+
     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-    this.closeAddGrowerDialog()
-  }  
+    this.closeGrowerDialog()
+  }
+  onEdit(element) {
+    console.log(element)
+    this.selectedGrowerID = element.id
+    this.openUpdateGrowerDialog()
+    this.growerFormData.get('name').setValue(element.name)
+    this.growerFormData.get('khata').setValue(element.khata)
+    this.growerFormData.get('address').setValue(element.address)
+    this.growerFormData.get('phone').setValue(element.phone)
+    this.growerFormData.get('district').setValue(element.district)
+    this.growerFormData.get('zip').setValue(element.zip)
+
+
+  }
+  openUpdateGrowerDialog() {
+    this.showGrowerDialog = true
+  }
+  openAddGrowerDialog() {
+    this.showGrowerDialog = true
+    this.addGrower = true;
+  }
+  closeGrowerDialog() {
+    this.showGrowerDialog = false;
+    this.addGrower = false;
+  }
+
 }
 

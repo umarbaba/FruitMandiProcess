@@ -3,7 +3,7 @@
 
         <div class="headingHolder">
             <div class="heading">
-                Profile Name
+                {{currentGrower.name}}
             </div>
         </div>
         <div class="data">
@@ -21,7 +21,7 @@
                 <div class="accountDetails">
                     <table>
                         <tr>
-                            <td> Account Bal: </td>
+                            <td> Account Bal : </td>
                             <td class="amount"> {{currentGrower.balance | currency:'INR'}} </td>
                         </tr>
                     </table>
@@ -34,23 +34,22 @@
                 <hr>
             </div>
             <div class="contactDetails">
-                <br>
                 <div class="sectionHeading">
                     CONTACT INFORMATION
                 </div>
 
-                <div class="contactDetails">
+                <div class="contactInfo">
                     <table>
                         <tr>
-                            <td>Phone:</td>
+                            <td>Phone :</td>
                             <td>{{currentGrower.phone}}</td>
                         </tr>
                         <tr>
-                            <td>Address:</td>
+                            <td>Address :</td>
                             <td>{{currentGrower.address}}</td>
                         </tr>
                         <tr>
-                            <td>Pan Card:</td>
+                            <td>Pan Card :</td>
                             <td>{{currentGrower.pan}}</td>
                         </tr>
                     </table>
@@ -72,12 +71,17 @@
                     </div>
                 </div>
             </div>
+            <div class="divider">
 
+            </div>
             <div class="transactions">
-                <ng-container *ngFor="let eachTransaction of growerTransactions">
+                <ng-container *ngFor="let eachTransaction of transactions">
 
                     <div class="transactionBox">
-                        {{eachTransaction.date}}
+                        <span>Date : <span style="font-weight: 500;">{{eachTransaction.date}}</span></span>
+                        <span>Boxes : <span style="font-weight: 500;">{{eachTransaction.no_of_boxes}}</span></span>
+                        <span>Amount : <span style="font-weight: 500;">{{eachTransaction.billed_amount}}</span></span>
+                        <span class="details">View Details</span>
                     </div>
                 </ng-container>
             </div>
@@ -127,25 +131,41 @@
         <div class="transactionPopup">
 
             <div class="stepContainer">
-
-                <div class="steps">
-                    <ul>
-                        <li [ngClass]="{'success':step1,'highlightStep':this.highlightStep1}">Select Grower</li>
-                        <li [ngClass]="{'success':step2,'highlightStep':this.highlightStep2}">Add Items</li>
-                        <li [ngClass]="{'success':step3,'highlightStep':this.highlightStep3}">Step 3</li>
-                    </ul>
-                    <span (click)="closeTransactionPopup()"  class="closeIcon"><i class="material-icons">
-                        close
-                        </i></span>
+                <div class="stepsHolder">
+                    <div class="steps">
+                        <ul>
+                            <li [ngClass]="{'success':step1,'highlightStep':this.highlightStep1}">Select Grower</li>
+                            <li [ngClass]="{'success':step2,'highlightStep':this.highlightStep2}">Add Items</li>
+                            <li [ngClass]="{'success':step3,'highlightStep':this.highlightStep3}">Verify Details</li>
+                        </ul>
+                        <span (click)="closeTransactionPopup()"  class="closeIcon"><i class="material-icons">close</i></span>                            
+                    </div>
+                    <div class="divider">
+    
+    
+                    </div>
                 </div>
+                
 
                 <div class="detailsContainer">
                     <div class="detailsHolder">
                         <div [ngClass]="['data', activeView]">
                             <div class="stepform">
-                                <label for="grower">Grower Name: </label>
-                                <span> Umar Baba</span>
-                                <br>
+                                <div class="growerStep">
+                                    <div class="selectedGrower">
+                                        <label for="grower">Grower Name: </label>
+                                        <span> {{currentGrower.name}}</span>
+                                    </div>
+                                   
+                                
+                                    <form [formGroup]="standardUpdateForm">
+                                        <label for="commision">Commision Charge</label>
+    
+                                        <span class="margin-left-5"><input type="number" placeholder="12" formControlName="commisionField"
+                                               >%</span>
+                                    </form>
+                                </div>
+                             
                             </div>
 
                             <div class="stepform">
@@ -187,12 +207,7 @@
                             </div>
                             <div class="stepform">
                                 <div class="verifyDetailsHeader">
-                                    <form [formGroup]="standardUpdateForm">
-                                        <label for="commision">Commision Charge</label>
-
-                                        <span class="margin-left-5"><input type="number" value="12" formControlName="commisionField"
-                                               >%</span>
-                                    </form>
+                                    
 
                                     <span><button (click)="onVerifyDetails()">verify Details</button></span>
 

@@ -42,6 +42,39 @@ export class GrowerComponent implements OnInit {
     'pan': 'CBFPB3544L',
 
   }
+
+  transactions=[{
+    "date":"15-03-2019",
+    "no_of_boxes":300,
+    "billed_amount":90000,
+    "prev_bal":-390000,
+    "current_bal":-300000,
+     pricePerBox: 300,
+  },
+  {
+    "date":"17-03-2019",
+    "no_of_boxes":200,
+    "billed_amount":50000,
+    "prev_bal":-300000,
+    "current_bal":-250000,
+     pricePerBox: 250,
+  },
+  {
+    "date":"23-07-2019",
+    "no_of_boxes":300,
+    "billed_amount":150000,
+    "prev_bal":-250000,
+    "current_bal":-100000,
+     pricePerBox: 500,
+  },
+  {
+    "date":"17-08-2019",
+    "no_of_boxes":400,
+    "billed_amount":200000,
+    "prev_bal":-100000,
+    "current_bal":100000,
+     pricePerBox: 500,
+  }]
   profileImage:any
   displayedColumns = ['item', 'price', 'qty', 'total'];
   dataSource: Transaction[] = []
@@ -157,7 +190,7 @@ export class GrowerComponent implements OnInit {
       let itemAmount = item.value.price * item.value.qty
       this.totalAmount += itemAmount
     });
-    let commision = this.standardUpdateForm.controls.commisionField.value;
+    let commision = this.standardUpdateForm.controls.commisionField.value||12;
     this.payableAmount = this.totalAmount - (this.totalAmount * commision / 100)
   }
 

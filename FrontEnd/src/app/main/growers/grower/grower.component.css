@@ -11,9 +11,16 @@
 }
 
 .sectionHeading {
-  color: #868282;
+  color: #ffffff;
   font-size: 1.4rem;
   letter-spacing: 0.5px;
+  font-weight: 500;
+  padding-left: 16px;
+  /* padding-bottom: 11px; */
+  background: #b2b2b2;
+}
+.contactInfo {
+  padding-top: 10px;
 }
 .accountDetails {
   padding: 10px 10px 0 0;
@@ -22,13 +29,22 @@ td {
   color: #2e2d2d;
   max-width: 250px;
   padding: 8px 16px;
+  font-size: 18px;
+  min-width: 150px;
+  font-weight: 500;
 }
-
+td:nth-child(1) {
+  color: #8b8b8b;
+}
+td:nth-child(2) {
+  color: #000;
+}
 td.amount {
   color: #ff4242;
-  font-size: 2rem;
-  font-weight: 500;
-  padding-left: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding-left: 10px;
+    text-decoration: underline;
 }
 .controls {
   display: flex;
@@ -47,6 +63,10 @@ td.amount {
   background: #ea1515;
   min-width: unset;
   color: white;
+}
+.accountInfo {
+  background: #fcfcfc;
+  box-shadow: 0 0 4px 2px #00000061;
 }
 button {
   padding: 8px 10px;
@@ -76,6 +96,9 @@ button:hover {
   grid-column-start: 2;
   grid-column-end: -1;
   margin-top: 10px;
+  background: #fcfcfc;
+  box-shadow: 0 0 4px 2px #00000061;
+
 }
 
 .imageContainer {
@@ -229,10 +252,16 @@ input[type="button" i]:disabled {
 .searchField {
   float: right;
 }
-.labelHead {
-  display: inline;
-}
+.divider {
+  height: 5px;
+  border: 1px dashed #a29b9b;
 
+}
+.labelHead{
+  display: inline;
+  font-size: 23px;
+  font-weight: 500;
+}
 .popupContainer {
   position: absolute;
   top: 0;
@@ -328,6 +357,7 @@ input[type="button" i]:disabled {
 
 .stepContainer ul {
   padding: 0;
+  margin-top: 15px;
 }
 .stepContainer li {
   list-style-type: none;
@@ -340,8 +370,8 @@ input[type="button" i]:disabled {
 .stepContainer li:before {
   content: counter(step);
   counter-increment: step;
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
   background: white;
   display: block;
   text-align: center;
@@ -351,14 +381,14 @@ input[type="button" i]:disabled {
   padding: 10px;
 }
 .stepContainer li:after {
-  content: "";
-  height: 3px;
-  background: #ddd;
-  position: absolute;
-  top: 22px;
-  left: -100px;
-  z-index: -1;
-  width: 100%;
+    content: "";
+    height: 3px;
+    background: #ddd;
+    position: absolute;
+    top: 24px;
+    left: -96px;
+    z-index: -1;
+    width: 100%;
 }
 .stepContainer li:first-child:after {
   width: 0px;
@@ -541,11 +571,10 @@ input.example-right-align {
   /* width: 70%; */
   justify-content: space-between;
   align-items: center;
+  padding-top:10px
 }
 
-table {
-  width: 100%;
-}
+
 .itemDetailsView {
   margin-top: 10px;
 }
@@ -557,4 +586,45 @@ tr.mat-header-row{
 }
 .mat-table-sticky {
   border-top: 1px solid #e0e0e0;
+}
+
+
+.transactionBox{
+  border: 1px solid #868484;
+    padding: 4px 2px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+span.details {
+  justify-content: flex-end;
+  /* margin-left: 30px; */
+  background: #e56767;
+  color: white;
+  cursor: pointer;
+  padding: 5px 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+span.details:hover {
+  background: #d33535;
+}
+
+.selectedGrower span {
+  font-size: 24px;
+  color: #ff7171;
+  font-weight: 500;
+}
+.selectedGrower {
+  margin: 20px 0;
+}
+.growerStep label {
+  display: inline-block;
+  margin-bottom: .5rem;
+  font-size: 18px;
+  font-weight: 500;
+  color: #646262;
 }

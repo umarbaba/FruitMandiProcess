@@ -10,19 +10,21 @@ table.mat-table {
 }
 .controlsContainer {
   display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    align-items: center;
 }
 .controls {
   display: inline-grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: 1fr 1fr;
-  width: 90%;
+    justify-content: flex-end;
+    align-items: center;
+    grid-template-columns: auto auto;
+    width: 100%;
+    padding-right: 20px;
 }
 .search {
-  margin-left: 10px;
+  margin-left: 20px;
+  width: 20rem;
 }
 .buttonsContainer {
   display: inline-flex;
@@ -54,7 +56,6 @@ button {
   box-sizing: border-box;
 }
 .table {
-  width: 90%;
   box-shadow: 0px 0px 10px 5px #ff64645c;
   box-sizing: border-box;
 }
@@ -70,7 +71,12 @@ button {
   margin: 0;
   padding: 0;
 }
-
+.mat-form-field {
+  display: block;
+  position: relative;
+  text-align: left;
+  font-size: 20px;
+}
 .dropdown ul li {
   list-style-type: none;
   padding: 0.3rem;
@@ -81,6 +87,12 @@ button {
 .dropdown ul li:hover {
   background: #29a3fc;
   color: white;
+}
+.addGrowerContentHolder i:hover {
+  background: #ff8a8a;
+  color: #000;
+  border-radius: 50%;
+  cursor: pointer;
 }
 button:hover {
   box-shadow: 0px 0px 8px 1px #999696;
@@ -114,10 +126,23 @@ th.mat-header-cell {
   padding-left: 10px;
   max-width: 200px;
   overflow: hidden;
+  font-size: 17px;
+  font-weight: 500;
   
+}
+tr.mat-row:nth-child(2n) {
+  background: #fffcfc;
+}
+td:nth-child(5) {
+  text-align: center;
+  /* font-size: small; */
+}
+th:nth-child(5) {
+  text-align: center;
 }
 th.mat-header-cell{
   font-size: 20px;
+  padding-bottom: 10px;
 }
 .growerName{
     color:#ff6464;
@@ -139,6 +164,10 @@ th.mat-header-cell{
     color: inherit;
 }
 
+tr.mat-header-row {
+  background:linear-gradient(45deg, #f1b4b4, transparent);
+  color: white;
+}
 
 .popupContainer {
   position: absolute;
@@ -214,4 +243,18 @@ width: 100%;
 }
 .upload-btn i{
   margin-left: 10px;
+}
+
+table i.material-icons {
+  padding: 5px;
+  border-radius: 50%;
+}
+
+table i.material-icons:hover {
+  cursor: pointer;
+  background: #e0dddd;
+  border-radius: 50%;
+  color: #03A9F4;
+  padding: 5px;
+  transition: .3s;
 }

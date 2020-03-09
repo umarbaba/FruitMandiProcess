@@ -1,21 +1,24 @@
 <div class="mainContainer">
     <div class="controlsContainer">
+       
         <div class="controls">
-            <div class="search">
-                <mat-form-field>
-                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Grower">
-                </mat-form-field>
-            </div>
-
             <div class="buttonsContainer">
                 <button (click)="addNew()"><i class="material-icons">
                     person_add
                     </i>Add New</button>
-                <button>Edit</button>
+              
             </div>
-        </div>
+            <div class="search">
 
+                <mat-form-field>
+                   
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Grower">
+                </mat-form-field>
+            </div>            
+        </div>      
     </div>
+
+    
 
     <div class="tableContainer">
         <div class="tableHolder">
@@ -43,9 +46,14 @@
                     </ng-container>
     
                     <!-- PhoneNo Column -->
-                    <ng-container matColumnDef="phoneNo">
+                    <ng-container matColumnDef="phone">
                         <th mat-header-cell *matHeaderCellDef> Phone </th>
-                        <td mat-cell *matCellDef="let element"> {{element.phoneNo}} </td>
+                        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action </th>
+                        <td mat-cell *matCellDef="let element">
+                             <i class="material-icons" (click)="onEdit(element)" >edit</i> </td>
                     </ng-container>
     
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
@@ -60,7 +68,7 @@
 </div>
 
 
-<ng-container *ngIf="showAddGrowerDialog">
+<!--<ng-container *ngIf="showAddGrowerDialog">
     <div class="popupContainer">
         <div class="popup">
             <div class="addGrowerContentHolder">
@@ -73,7 +81,7 @@
                 </div>
 
                 <div class="content">
-                    <form [formGroup]="growerAddFormData" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="growerFormData" (ngSubmit)="onSubmit()">
                         <div class="form-content-umb">
                             <div class="input_fields">
                                 <div class="form-row">
@@ -138,8 +146,102 @@
 
         </div>
     </div>
-</ng-container>
+</ng-container>-->
 
+<ng-container *ngIf="showGrowerDialog">
+    <div class="popupContainer">
+        <div class="popup">
+            <div class="addGrowerContentHolder">
+                <div class="header">
+                    <header>
+                        <ng-container *ngIf="addGrower;else updateGrower">
+                            Add New Grower
+                        </ng-container>
+                        <ng-template #updateGrower>
+                            Update
+                        </ng-template>
+                        
+                    </header>
+                    <span><i (click)="closeGrowerDialog()" class="material-icons">close</i></span>
+
+                </div>
+
+                <div class="content">
+                    <form [formGroup]="growerFormData" (ngSubmit)="onSubmit()">
+                        <div class="form-content-umb">
+                            <div class="input_fields">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputName">Name</label>
+                                        <input type="text" class="form-control" id="inputName" placeholder="Name"
+                                            formControlName="name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputKhata">Khata</label>
+                                        <input type="text" class="form-control" id="inputKhata" placeholder="Khata"
+                                        formControlName="khata">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"
+                                    formControlName="address">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputPhone">Phone</label>
+                                        <input type="tel" class="form-control" id="inputPhone" placeholder="1234-1234"
+                                        formControlName="phone">
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputDistrict">District</label>
+                                        <input type="text" class="form-control" id="inputDistrict" formControlName="district">
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">Zip</label>
+                                        <input type="text" class="form-control" id="inputZip" formControlName="zip">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <span class="upload-btn" (click)="upload.click()"><label>Upload Image</label><i
+                                            class="material-icons">
+                                            folder
+                                        </i></span>
+                                    <img [src]="url" height="150" *ngIf="showImage"> <br />
+                                    <input style="display: none;" type='file' name="Upload Image"
+                                        (change)="onSelectFile($event)" #upload formControlName="image">
+                                </div>
+                            </div>
+
+                            <div class="controls">
+                                <button (click)="closeGrowerDialog()">Cancel</button>
+
+                                <button type="submit" value="submit">
+                                <ng-container *ngIf="addGrower; else updateGrower">
+                                    Add
+                                </ng-container>
+                                <ng-template #updateGrower>
+                                    Update
+                                </ng-template>
+                                    
+                                </button>
+
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</ng-container>
 
 
 

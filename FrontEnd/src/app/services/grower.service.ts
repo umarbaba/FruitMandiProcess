@@ -7,6 +7,12 @@ export class GrowerService {
     private currentSelectedGrower: any;
     url:any
     constructor() { }
+    getUniqueId(){
+        return Math.random().toString(36).substring(2) + this.getDate()
+    }
+    getDate() {
+        return Date.now();
+      }
     setData(item) {
         this.currentSelectedGrower = item;
     }
