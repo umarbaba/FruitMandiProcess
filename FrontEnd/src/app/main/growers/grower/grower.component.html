@@ -81,7 +81,7 @@
                         <span>Date : <span style="font-weight: 500;">{{eachTransaction.date}}</span></span>
                         <span>Boxes : <span style="font-weight: 500;">{{eachTransaction.no_of_boxes}}</span></span>
                         <span>Amount : <span style="font-weight: 500;">{{eachTransaction.billed_amount}}</span></span>
-                        <span class="details">View Details</span>
+                        <span class="details" (click)=viewTransactionDetails(eachTransaction)>View Details</span>
                     </div>
                 </ng-container>
             </div>
@@ -90,7 +90,7 @@
     </div>
 
 </div>
-<ng-container *ngIf="OpenPayAmountDialogue">
+<ng-container *ngIf="openPayAmountDialogue">
     <div class="popupContainer">
         <div class="popupHolder">
             <div class="popupContent">
@@ -206,16 +206,9 @@
                                 </div>
                             </div>
                             <div class="stepform">
-                                <div class="verifyDetailsHeader">
-                                    
-
+                                <div class="verifyDetailsHeader">  
                                     <span><button (click)="onVerifyDetails()">verify Details</button></span>
-
-
                                 </div>
-
-
-
                                 <div *ngIf="showItemDetails" class="itemDetailsView">
 
                                     <div class="example-container mat-elevation-z8">
@@ -252,30 +245,6 @@
                                             <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
                                         </table>
                                     </div>
-
-
-                                    <!--<table>
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Price</th>
-                                            <th>Qty</th>
-                                            <th>Amount</th>
-                                        </tr>
-
-                                        <tr *ngFor="let item of standardUpdateForm.controls.versionList.controls"
-                                            class="item">
-                                            <td>{{item.value.item}}</td>
-                                            <td>{{item.value.price}}</td>
-                                            <td>{{item.value.qty}}</td>
-                                            <td>{{item.value.price * item.value.qty}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total</th>
-                                            <td></td>
-                                            <td></td>
-                                            <th>{{totalAmount}}</th>
-                                        </tr>
-                                    </table>-->
                                     <hr>
                                     <div class="AmountPayable">
                                         <label for="">Total Amount Payable after
@@ -308,110 +277,64 @@
     </div>
 </ng-container>
 
+<ng-container *ngIf="openTransactionDetailsDialogue">
+    <div class="popupContainer">
+        <div class="transactionPopup">
+            <div class="transactionDetails">
+                <div class="cardsHolder">
+                    <div class="cards">
+                        <div class="card-ub btn-warning">
+                            <div for="">Previous Bal.</div>
+                            <div class="item">-90000</div>
+                        </div>
+                        <div class="card-ub btn-primary">
+                            <div for="">Current Bal.</div>
+                            <div class="item">-40000</div>
+    
+                        </div>
+                        <div class="card-ub btn-info">
+                            <div for="">Total Boxes</div>
+                            <div class="item">100</div>
+                        </div>
+                        <div class="card-ub btn-success">
+                            <div for="">Billed Amount</div>
+                            <div class="item">500000</div>
+                        </div>
+                    </div>
+                    <span (click)="closeTransactionDetailsPopup()"  class="closeIcon"><i class="material-icons">close</i></span>                            
 
-<!--<div class="transactionContainer">
-    <div class="detailsContainer">
-        <div class="detailsHolder">
-            <div class="headingContainer">
-                <div class="headingHolder">
-                    <div class="label">
-                        Grower
+                   
+                </div>
+                <div class="details">      
+                    <div class="transactionInfo">
+                        <div class=".id">
+                            Transaction ID : <span class="transactionID">{{currentTransaction.id}}</span>
+                        </div>
+                        <div class="date">
+                            Date : <span class="currentDate">{{currentTransaction.date}}</span>
+                        </div>
                     </div>
-                    <div class="heading">
-                        {{currentGrower.name}}
-                    </div>
+                    
+                    <table class="transactionTable">
+                        <tr>
+                            <th>ITEM</th>
+                            <th>PRICE</th>
+                            <th>QTY</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr *ngFor="let item of currentTransaction.items">
+                            <td>{{item.item_name}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.qty}}</td>
+                            <td>{{item.price*item.qty}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="controls">
+                    Controls are here
                 </div>
             </div>
 
-            <div class="row">
-                <div class="column">
-                    <div class="smallLabel">
-                        Name
-                    </div>
-                    <div class="inputHolder">
-                        <input type="text" #name name="name" [value]="inputdisabled?selectedItem?.name:''"
-                            class="textfield" [disabled]="inputdisabled">
-                    </div>
-
-                </div>
-                <div class="column paddingleft">
-                    <div class="smallLabel ">
-                        Credit
-                    </div>
-                    <div class="inputHolder">
-                        <input type="text" name="name" #credit [value]="inputdisabled?selectedItem?.credit:''"
-                            class="textfield" [disabled]="inputdisabled">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="column">
-                    <div class="smallLabel">
-                        Phone
-                    </div>
-                    <div class="inputHolder">
-                        <input type="text" name="name" #phone [value]="inputdisabled?selectedItem?.phone:''"
-                            class="textfield" [disabled]="inputdisabled">
-                    </div>
-
-                </div>
-                <div class="column paddingleft">
-                    <div class="smallLabel">
-                        Email
-                    </div>
-                    <div class="inputHolder">
-                        <input type="text" name="name" #email [value]="inputdisabled?selectedItem?.email:''"
-                            class="textfield" [disabled]="inputdisabled">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="column">
-                    <div class="smallLabel">
-                        Last Transaction
-                    </div>
-                    <div class="inputHolder">
-                        <input type="text" name="name" value={{selectedItem?.lastTransaction}} class="textfield"
-                            disabled>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="buttonContainer">
-                    <input type="button" class="mdbtn" value="Proceed" [disabled]="buttonDisabled" (click)=proceedBuy()>
-                </div>
-
-            </div>
         </div>
     </div>
-    <div class="eTransactionContainer">
-        <div class="earlierTransactionsHolder">
-            <div class="eHeading">
-                <div class="labelHead">
-                    Earlier Transactions
-                </div>
-                <div class="searchField">
-                    <div class="inputHold">
-                        <input type="text" class="mdText" placeholder="search transaction...">
-                    </div>
-                </div>
-            </div>
-
-            <div class="transactions">
-                <ng-container *ngFor="let eachTransaction of growerTransactions">
-
-                    <div class="transactionBox">
-                        {{eachTransaction.date}}
-                    </div>
-                </ng-container>
-            </div>
-        </div>
-    </div>
-</div>
-
--->
+</ng-container>

@@ -18,8 +18,10 @@ export interface Transaction {
 })
 export class GrowerComponent implements OnInit {
 
-  OpenPayAmountDialogue = false;
+  openPayAmountDialogue = false;
   openTransactionDialogue = false;
+  openTransactionDetailsDialogue = false;
+
   showItemDetails = false;
   highlightStep1 = true
   highlightStep2 = false
@@ -32,7 +34,8 @@ export class GrowerComponent implements OnInit {
   totalAmount = 0;
   payableAmount = 0;
   activeView = "left";
-  standardUpdateForm
+  standardUpdateForm;
+  currentTransaction
   currentGrower = {
     'name': 'umar baba',
     'address': 'Achabal Sopore Kashmir 193201',
@@ -43,39 +46,80 @@ export class GrowerComponent implements OnInit {
 
   }
 
-  transactions=[{
-    "date":"15-03-2019",
-    "no_of_boxes":300,
-    "billed_amount":90000,
-    "prev_bal":-390000,
-    "current_bal":-300000,
-     pricePerBox: 300,
+  transactions = [{
+    "id": "kas434j3h4kjh34kj3h",
+    "date": "15-03-2019",
+    "no_of_boxes": 300,
+    "billed_amount": 90000,
+    "prev_bal": -390000,
+    "current_bal": -300000,
+    items: [{
+      "item_name": "Delicious no 1",
+      "qty": 200,
+      "price": 300
+    }, {
+      "item_name": "Delicious no 2",
+      "qty": 200,
+      "price": 300
+    }]
   },
   {
-    "date":"17-03-2019",
-    "no_of_boxes":200,
-    "billed_amount":50000,
-    "prev_bal":-300000,
-    "current_bal":-250000,
-     pricePerBox: 250,
+    "id": "2jg2h3g2jh3ggjhgjhg",
+    "date": "17-03-2019",
+    "no_of_boxes": 200,
+    "billed_amount": 50000,
+    "prev_bal": -300000,
+    "current_bal": -250000,
+    items: [{
+      "item_name": "Kesar no 1",
+      "qty": 100,
+      "price": 300
+    }, {
+      "item_name": "Kesar no 2",
+      "qty": 100,
+      "price": 200
+    }]
   },
   {
-    "date":"23-07-2019",
-    "no_of_boxes":300,
-    "billed_amount":150000,
-    "prev_bal":-250000,
-    "current_bal":-100000,
-     pricePerBox: 500,
+    "id": "1etr3t3rt3rt3rt34g",
+    "date": "23-07-2019",
+    "no_of_boxes": 300,
+    "billed_amount": 150000,
+    "prev_bal": -250000,
+    "current_bal": -100000,
+    items: [{
+      "item_name": "Amrican no 1",
+      "qty": 200,
+      "price": 600
+    }, {
+      "item_name": "Amrican no 2",
+      "qty": 100,
+      "price": 300
+    }]
   },
   {
-    "date":"17-08-2019",
-    "no_of_boxes":400,
-    "billed_amount":200000,
-    "prev_bal":-100000,
-    "current_bal":100000,
-     pricePerBox: 500,
-  }]
-  profileImage:any
+    "id": "43hjhg4jh456g5jh6g46vh4",
+    "date": "17-08-2019",
+    "no_of_boxes": 400,
+    "billed_amount": 200000,
+    "prev_bal": -100000,
+    "current_bal": 100000,
+    items: [{
+      "item_name": "Delicious no 1",
+      "qty": 200,
+      "price": 700
+    }, {
+      "item_name": "Delicious no 2",
+      "qty": 100,
+      "price": 200
+    }, {
+      "item_name": "Delicious 4 tah",
+      "qty": 100,
+      "price": 400
+    }]
+  },
+  ]
+  profileImage: any
   displayedColumns = ['item', 'price', 'qty', 'total'];
   dataSource: Transaction[] = []
 
@@ -113,17 +157,17 @@ export class GrowerComponent implements OnInit {
     })
     //this.totalBal = this.prevBal;   
     //this.growerTransactions = this.growerService.getTransactions();
-    this.profileImage=this.growerService.url;
+    this.profileImage = this.growerService.url;
   }
   calculateRemBal(amountPayingNow: number) {
 
     this.remBal = this.currentGrower.balance - amountPayingNow;
   }
   openPayDialogue() {
-    this.OpenPayAmountDialogue = true;
+    this.openPayAmountDialogue = true;
   }
   closePayDialogue() {
-    this.OpenPayAmountDialogue = false;
+    this.openPayAmountDialogue = false;
   }
   payAmount() {
     this.currentGrower.balance = this.remBal;
@@ -132,7 +176,7 @@ export class GrowerComponent implements OnInit {
   openAddTransactionDialogue() {
     this.openTransactionDialogue = true;
   }
-  closeTransactionPopup(){
+  closeTransactionPopup() {
     this.openTransactionDialogue = false;
   }
 
@@ -190,7 +234,7 @@ export class GrowerComponent implements OnInit {
       let itemAmount = item.value.price * item.value.qty
       this.totalAmount += itemAmount
     });
-    let commision = this.standardUpdateForm.controls.commisionField.value||12;
+    let commision = this.standardUpdateForm.controls.commisionField.value || 12;
     this.payableAmount = this.totalAmount - (this.totalAmount * commision / 100)
   }
 
@@ -218,6 +262,13 @@ export class GrowerComponent implements OnInit {
     const control = <FormArray>this.standardUpdateForm.get('versionList');
     control.removeAt(index)
   }
- 
+  viewTransactionDetails(transactionData) {
+    console.log(transactionData)
+    this.openTransactionDetailsDialogue = true;
+    this.currentTransaction = transactionData
+  }
+  closeTransactionDetailsPopup(){
+    this.openTransactionDetailsDialogue = false;
+  }
 
 }
